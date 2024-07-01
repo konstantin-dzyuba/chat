@@ -1,5 +1,6 @@
 package ru.dzyubaka.chat;
 
+import lombok.SneakyThrows;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.stereotype.Component;
@@ -15,13 +16,10 @@ public class RedisMessageSubscriber extends MessageListenerAdapter {
     private static final List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
 
     @Override
+    @SneakyThrows
     public void onMessage(Message message, byte[] pattern) {
         for (WebSocketSession session : sessions) {
-            try {
-                session.sendMessage(new TextMessage(message.getBody()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            session.sendMessage(new TextMessage(message.getBody()));
         }
     }
 

@@ -17,9 +17,4 @@ public class RedisListenerConfig {
         container.addMessageListener(listenerAdapter, new PatternTopic("websocket-channel"));
         return container;
     }
-
-    @Bean
-    MessageListenerAdapter listenerAdapter(RedisMessageSubscriber subscriber) {
-        return new MessageListenerAdapter(subscriber, "onMessage");
-    }
 }
