@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSockets</title>
+</head>
+<body>
+<input id="message" placeholder="Message">
+<button onclick="socket.send(message.value)">Send</button>
+<ul id="messages"></ul>
+<script>
+    const socket = new WebSocket('ws://localhost:8080/ws')
+    socket.onmessage = (event) => {
+        let li = document.createElement('li')
+        li.innerHTML = event.data
+        messages.appendChild(li)
+    }
+</script>
+</body>
+</html>
